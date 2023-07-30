@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv = "content-type" content = "text/html; charset = utf-8"/>
+	<meta name="author" content="梁钧凯"/>
+	<title>微博文本情感分析-测试</title>
+	<script src="https://cdn.bootcss.com/particles.js/2.0.0/particles.js"></script>
+	<link rel="stylesheet" media="all" href="css/index-style.css"/>
+</head>
+<body>
+	<div id="particles-js"></div>
+	<script src="scripts/particles-index.js"></script>
+	<script type="text/javascript">
+		function ClearInput()
+			{
+			var x=document.getElementById("url");
+			x.value="https://m.weibo.cn/detail/";
+			x=document.getElementById("num");
+			x.value="";
+			}
+		function Check()
+			{
+			var mid=document.getElementById("url");
+			var num=document.getElementById("num");
+			var re=new RegExp("https://m\.weibo\.cn/detail/([0-9]+)");
+			var match=re.exec(mid.value);
+			if(match == null||match[0] != mid.value)
+				{
+				alert("微博URL不合法！");
+				mid.value="";
+				return false;
+				}
+			var cnt=parseInt(num.value,10);
+			if(cnt.toString() == "NaN")cnt=0;
+			if(cnt>20)cnt=20;
+			num.value=cnt;
+			document.getElementById("mid").value=match[1];
+			return true;
+			}
+	</script>
+	<div id="form">
+		<form action="solve.php" onsubmit="return Check()">
+			微博URL:<br>
+			<input type="text" class="input" value="https://m.weibo.cn/detail/" spellcheck=false placeholder="https://m.weibo.cn/detail/微博ID" id="url"><br>
+			<input type="hidden" name="mid" id="mid">
+			参考数量:<br>
+			<input type="text" class="input" style="text-align:center" placeholder="请输入参考最近微博的数量(0~20)" name="num" id="num">
+			<br>
+			<input type="submit" class="button" value="提交">&emsp;&emsp;<input type="button" class="button" onclick="ClearInput()" value="重置"><br>
+		</form>
+	</div>
+</body>
+</html>
